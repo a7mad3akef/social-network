@@ -13,3 +13,20 @@ MongoClient.connect(url, function(err, db) {
     db.close();
   });
 });
+
+function get_song_by_id (theId, callback){
+    MongoClient.connect(url, function(err, db) {
+        if (err) throw err;
+        var query = { _id: ObjectId(req.query.id) };
+        db.collection("songs").find(query).toArray(function(err, result) {
+          if (err) throw err;
+          console.log(result);
+          db.close();
+          callback(result)
+        });
+      });  
+}
+
+get_song_by_id('57c07cc52dc25bc026c9b960',function(result){
+    console.log(result)
+})
