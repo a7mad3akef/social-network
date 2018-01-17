@@ -488,7 +488,7 @@ module.exports = function(app, passport) {
         //   res.redirect('/settings');
         })
         form.on('fileBegin', function (name, file) {
-          const [fileName, fileExt] = file.name.split('.')
+          var [fileName, fileExt] = file.name.split('.')
           var file_path = path.join(uploadDir, `${fileName}_${new Date().getTime()}.${fileExt}`)
           file.path = file_path
           var relative_path = file_path.split(uploadDir)[1]
