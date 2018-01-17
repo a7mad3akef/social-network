@@ -17,7 +17,7 @@ MongoClient.connect(url, function(err, db) {
 function get_song_by_id (theId, callback){
     MongoClient.connect(url, function(err, db) {
         if (err) throw err;
-        var query = { _id: ObjectId(req.query.id) };
+        var query = { _id: ObjectId(theId) };
         db.collection("songs").find(query).toArray(function(err, result) {
           if (err) throw err;
           console.log(result);
