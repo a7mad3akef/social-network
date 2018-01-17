@@ -6,7 +6,7 @@ module.exports = {
     'facebookAuth' : {
         'clientID'        : '379060449188375', // your App ID
         'clientSecret'    : '2b5f8fb67513fce202cb868631e89865', // your App Secret
-        'callbackURL'     : 'http://localhost:8080/auth/facebook/callback',
+        'callbackURL'     : 'https://kofa.localtunnel.me/auth/facebook/callback',
         'profileURL': 'https://graph.facebook.com/v2.5/me?fields=first_name,last_name,email',
         'profileFields'   : ['id', 'email', 'name'] // For requesting permissions from Facebook API
 
