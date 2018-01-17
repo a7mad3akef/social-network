@@ -7,7 +7,7 @@ var url = 'mongodb://' + 'discogsadmin' + ':' + 'discogsa1234' + '@127.0.0.1:' +
 MongoClient.connect(url, function(err, db) {
   if (err) throw err;
   var query = { title:'Östermalm' };
-  dbo.collection("songs").find(query).toArray(function(err, result) {
+  db.collection("songs").find(query).toArray(function(err, result) {
     if (err) throw err;
     console.log(result);
     db.close();
