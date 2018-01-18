@@ -529,6 +529,14 @@ module.exports = function(app, passport) {
         })
     })
 
+    app.post('/listen_song', isLoggedIn, function(req, res){
+        var user = req.user
+        var theId = req.query.theId
+        add_song_to_events(theId, user, function(){
+            res.redirect('acount');
+        })
+    })
+
     app.get('/account', isLoggedIn, function(req, res){
         var user = req.user;
         res.render('account.ejs',{
@@ -538,6 +546,57 @@ module.exports = function(app, passport) {
 
 };
 
+function add_song_to_events(theId, user, callback){
+    MongoClient.connect(url, function(err, db) {
+      if (err) throw err;
+      var query = { _id: ObjectId(theId) };
+      db.collection("songs").find(query).toArray(function(err, result) {
+        if (err) throw err;
+        delete result[0]._id
+        result[0].user_name = user.name
+        result[0].user_id = user._id
+        result[0].song_id = theId
+        result[0].time = getDateTime()
+        result[0].likes = []
+        result[0].dislikes = []
+        result[0].comments = []
+        result[0].pushes = []
+        db.collection("events").insertOne(result[0], function(err, res) {
+        if (err) throw err;
+        console.log("1 document inserted");
+        db.close();
+      });
+        callback(result)
+      });
+      
+     
+    });
+  }
+
+  function getDateTime() {
+    
+        var date = new Date();
+    
+        var hour = date.getHours();
+        hour = (hour < 10 ? "0" : "") + hour;
+    
+        var min  = date.getMinutes();
+        min = (min < 10 ? "0" : "") + min;
+    
+        var sec  = date.getSeconds();
+        sec = (sec < 10 ? "0" : "") + sec;
+    
+        var year = date.getFullYear();
+    
+        var month = date.getMonth() + 1;
+        month = (month < 10 ? "0" : "") + month;
+    
+        var day  = date.getDate();
+        day = (day < 10 ? "0" : "") + day;
+    
+        return year + ":" + month + ":" + day + ":" + hour + ":" + min + ":" + sec;
+    
+    }
 // route middleware to ensure user is logged in
 function isLoggedIn(req, res, next) {
     if (req.isAuthenticated())
