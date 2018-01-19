@@ -1,5 +1,3 @@
-import { concat } from '../../../../../../home/k0f4/.cache/typescript/2.6/node_modules/@types/async';
-
 var MongoClient = require('mongodb').MongoClient;
 var ObjectId = require('mongodb').ObjectID;
 var databaseName = 'discogs'
