@@ -531,7 +531,7 @@ module.exports = function(app, passport) {
 
     app.post('/listen_song', isLoggedIn, function(req, res){
         var user = req.user
-        var theId = req.query.theId
+        var theId = req.body.theId
         console.log(theId)
         add_song_to_events(theId, user, function(){
             res.redirect('acount');
