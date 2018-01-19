@@ -256,59 +256,6 @@ module.exports = function(app, passport) {
                        
                 }
                 
-                // var notFollowing = [];
-
-                // async.each(result,
-                //     // 2nd param is the function that each item is passed to
-                //     function(item, index, callback){
-                //         // console.log(index)
-                //         async.each(following,
-                //             // 2nd param is the function that each item is passed to
-                //             function(follow, callback){
-                             
-                //                 if ( JSON.stringify(follow.id) != JSON.stringify(item._id) ) {
-                //                     notFollowing.push(item); 
-                //                 }
-                //             },
-                //             function(err){
-                //               console.log(err)
-                //             }
-                //           );
-                        
-                //     },
-                //     function(err){
-                //       console.log(err)
-                //     }
-                //   );
-
-                   
-                      
-                    // for (var v in following) { 
-                    //     if ( JSON.stringify(following[v].id) == JSON.stringify(result[i]._id) ) {
-                    //         result.splice(i, 1); 
-                    //     }
-                    // } 
-                   
-
-                //   console.log('here')
-                //   result.push(req.user)
-                //   res.send(result)
-
-
-                // function comparer(otherArray){
-                //     return function(current){
-                //       return otherArray.filter(function(other){
-                //         return other.value == current.value 
-                //       }).length == 0;
-                //     }
-                //   }
-                  
-                //   var onlyInA = result.filter(comparer(following));
-                //   var onlyInB = following.filter(comparer(result));
-                  
-                //   final = onlyInA.concat(onlyInB);
-                  
-                //   console.log(final);
 
 
                 res.render('users.ejs', {

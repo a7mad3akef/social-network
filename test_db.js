@@ -1,3 +1,5 @@
+import { concat } from '../../../../../../home/k0f4/.cache/typescript/2.6/node_modules/@types/async';
+
 var MongoClient = require('mongodb').MongoClient;
 var ObjectId = require('mongodb').ObjectID;
 var databaseName = 'discogs'
@@ -52,7 +54,22 @@ function add_song_to_events(theId, callback){
    
   });
 }
+function get_user_posts(theId){
+  MongoClient.connect(url, function(err, db) {
+    if (err) throw err;
+    var query = { user_id: ObjectId(theId) };
+    db.collection("events").find(query).toArray(function(err, result) {
+      if (err) throw err;
+      console.log(result)
+      callback(result)
+    }); 
+  });
+}
 
-add_song_to_events('5a16b3e1a5b94b1626140002',function(result){
-    console.log(result)
+// add_song_to_events('5a16b3e1a5b94b1626140002',function(result){
+//     console.log(result)
+// })
+
+get_user_posts('5a5b086f24e0573e6d643503', function(result){
+  console.log(result)
 })
