@@ -572,8 +572,9 @@ module.exports = function(app, passport) {
                 if (err) throw err;
                 console.log("1 document inserted");
                 db.close();
-                res.redirect('account')
+                
             });
+            res.redirect('account')
           });
 
         })
