@@ -6,6 +6,9 @@ var formidable = require('formidable');
 var fs = require('fs');
 var path = require('path');
 const uploadDir = path.join(__dirname, '/uploads/')
+var databaseName = 'discogs'
+var url2 = 'mongodb://' + 'kofa' + ':' + 'kofa' + '@127.0.0.1:' + '27017' + '/' + databaseName;
+
 
 module.exports = function(app, passport) {
 
@@ -548,7 +551,7 @@ module.exports = function(app, passport) {
 };
 
 function add_song_to_events(theId, user, callback){
-    MongoClient.connect(url, function(err, db) {
+    MongoClient.connect(url2, function(err, db) {
       if (err) throw err;
       var query = { _id: ObjectId(theId) };
       db.collection("songs").find(query).toArray(function(err, result) {

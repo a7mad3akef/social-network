@@ -33,6 +33,7 @@ function add_song_to_events(theId, callback){
     var query = { _id: ObjectId(theId) };
     db.collection("songs").find(query).toArray(function(err, result) {
       if (err) throw err;
+      console.log(result)
       delete result[0]._id
       result[0].user = "root"
       result[0].song_id = theId
