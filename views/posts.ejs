@@ -23,7 +23,7 @@
     </div>
     <% for(var i=0; i<result.length; i++) { %>
         <li> 
-            result[i]
+            <%= result[i] %>
             <a href='user?id=<%= result[i]._id %>' ><%= result[i].user_name %></a>
             <!-- <a href='follow?id=<%= result[i]._id %>&name=<%= result[i].name %>' class="btn btn-success btn-sm">Follow </a> -->
         </li>
