@@ -541,7 +541,7 @@ module.exports = function(app, passport) {
         })
     });
 
-    app.post('post_image', isLoggedIn, function(req, res){
+    app.post('/post_image', isLoggedIn, function(req, res){
         var form = new formidable.IncomingForm();
         form.multiples = true
         form.keepExtensions = true
