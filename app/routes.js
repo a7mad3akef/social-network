@@ -563,6 +563,17 @@ function add_song_to_events(theId, user, callback){
      
     });
   }
+  function get_user_posts(theId, callback){
+    MongoClient.connect(url2, function(err, db) {
+      if (err) throw err;
+      var query = { user_id: ObjectId(theId) };
+      db.collection("events").find(query).toArray(function(err, result) {
+        if (err) throw err;
+        console.log(result)
+        callback(result)
+      }); 
+    });
+  }
 
   function getDateTime() {
     
