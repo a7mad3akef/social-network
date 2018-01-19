@@ -568,7 +568,7 @@ module.exports = function(app, passport) {
           result.pushes = []
           MongoClient.connect(url2, function(err, db) {
             if (err) throw err;
-            db.collection("events").insertOne(result[0], function(err, res) {
+            db.collection("events").insertOne(result, function(err, res) {
                 if (err) throw err;
                 console.log("1 document inserted");
                 db.close();
