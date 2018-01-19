@@ -527,6 +527,12 @@ module.exports = function(app, passport) {
         })
     })
 
+    app.get('/my_posts',isLoggedIn, function(req, res){
+        var user_id = req.user._id
+        get_user_posts(user_id, function(result){
+            res.re
+        })
+    })
     app.get('/account', isLoggedIn, function(req, res){
         var user = req.user;
         res.render('account.ejs',{
