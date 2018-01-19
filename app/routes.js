@@ -537,7 +537,44 @@ module.exports = function(app, passport) {
         var theId = req.body.theId
         console.log(theId)
         add_song_to_events(theId, user, function(){
-            res.redirect('acount');
+            res.redirect('account');
+        })
+    });
+
+    app.post('post_image', isLoggedIn, function(req, res){
+        var form = new formidable.IncomingForm();
+        form.multiples = true
+        form.keepExtensions = true
+        form.uploadDir = uploadDir
+        form.parse(req, (err, fields, files) => {
+          if (err) return res.status(500).json({ error: err })
+        //   res.redirect('/settings');
+        })
+        form.on('fileBegin', function (name, file) {
+          var [fileName, fileExt] = file.name.split('.')
+          var file_path = path.join(uploadDir, `${fileName}_${new Date().getTime()}.${fileExt}`)
+          file.path = file_path
+          var relative_path = file_path.split(uploadDir)[1]
+          console.log(relative_path)
+          var result = {}
+          result.user_name = user.name
+          result.user_id = user._id
+          result.relative_path = relative_path
+          result.time = getDateTime()
+          result.likes = []
+          result.dislikes = []
+          result.comments = []
+          result.pushes = []
+          MongoClient.connect(url2, function(err, db) {
+            if (err) throw err;
+            db.collection("events").insertOne(result[0], function(err, res) {
+                if (err) throw err;
+                console.log("1 document inserted");
+                db.close();
+                res.redirect('account')
+            });
+          });
+
         })
     })
 
