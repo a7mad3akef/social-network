@@ -545,7 +545,9 @@ module.exports = function(app, passport) {
     })
 
     app.get('/posts', isLoggedIn, function(req, res){
-        get_post_info(function(result){
+        var theId = req.query.id
+        console.log(theId)
+        get_post_info(theId, function(result){
             res.render('post.ejs',{
                 result : result
             })
