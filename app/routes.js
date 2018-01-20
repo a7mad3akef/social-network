@@ -651,9 +651,9 @@ function add_song_to_events(theId, user, callback){
             return el.id !== user._id;
         });
         current_likes = the_likes.filter(function(el) {
-            return el.id !== user._id;
+            return el.name !== user.name;
         });
-        console.log(current_likes)
+        console.log(the_likes)
         current_likes.push({
             name: user.name,
             id: user._id,
