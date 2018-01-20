@@ -626,7 +626,8 @@ function add_song_to_events(theId, user, callback){
     MongoClient.connect(url2, function(err, db) {
       if (err) throw err;
       var query = {};
-      db.collection("events").find(query).toArray(function(err, result) {
+      var mysort = { time: -1 };
+      db.collection("events").find(query).sort(mysort).toArray(function(err, result) {
         if (err) throw err;
         console.log(result)
         callback(result)
