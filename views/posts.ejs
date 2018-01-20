@@ -37,8 +37,9 @@
                 at that time:<a href='post?id=<%= result[i]._id %>' ><%= result[i].time %></a>
                 <%= result[i].user_name %> listen to this song <%= result[i].title %>
             <% } %>
+            <%= user_id %>
             <% if (result[i].user_id == user_id) { %>
-                <a href='account' ><%= result[i].user_name %></a>
+                <a href='account' ><%= result[i].user_name %><%= user_id %></a>
             <% } else { %>
                 <a href='user?id=<%= result[i].user_id %>' ><%= result[i].user_name %></a>
             <% } %>    
