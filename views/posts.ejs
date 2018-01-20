@@ -23,18 +23,19 @@
     </div>
     <% for(var i=0; i<result.length; i++) { %>
         <li> 
-            <%= result[i] %>
             <% if (result[i].relative_path) { %>
                 <p>
+                    at that time:<a href='post?id=<%= result[i]._id %>' ><%= result[i].time %></a>
                     <%= result[i].user_name %> uploaded this image
+                    <br>
                     <img src='<%= result[i].relative_path %>' height="100" width="100"><br>
-                    <a href='post?id=<%= result[i]._id %>' ><%= result[i].time %></a>
+                    
                     
                 </p>
                 
             <% } else { %>
+                at that time:<a href='post?id=<%= result[i]._id %>' ><%= result[i].time %></a>
                 <%= result[i].user_name %> listen to this song <%= result[i].title %>
-                <a href='post?id=<%= result[i]._id %>' ><%= result[i].time %></a> 
             <% } %>
             <a href='user?id=<%= result[i].user_id %>' ><%= result[i].user_name %></a>
             <!-- <a href='follow?id=<%= result[i]._id %>&name=<%= result[i].name %>' class="btn btn-success btn-sm">Follow </a> -->
