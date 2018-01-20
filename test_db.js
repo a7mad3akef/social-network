@@ -52,10 +52,22 @@ function add_song_to_events(theId, callback){
    
   });
 }
-function get_user_posts(theId){
+function get_user_posts(theId, callback){
   MongoClient.connect(url, function(err, db) {
     if (err) throw err;
     var query = { user_id: ObjectId(theId) };
+    db.collection("events").find(query).toArray(function(err, result) {
+      if (err) throw err;
+      console.log(result)
+      callback(result)
+    }); 
+  });
+}
+
+function get_post_info(theId, callback){
+  MongoClient.connect(url, function(err, db) {
+    if (err) throw err;
+    var query = { _id: ObjectId(theId) };
     db.collection("events").find(query).toArray(function(err, result) {
       if (err) throw err;
       console.log(result)
@@ -68,6 +80,6 @@ function get_user_posts(theId){
 //     console.log(result)
 // })
 
-get_user_posts('5a5b086f24e0573e6d643503', function(result){
+get_post_info('5a60f991eafce62382d24171', function(result){
   console.log(result)
 })

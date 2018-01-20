@@ -36,6 +36,7 @@
                 
             <% } else { %>
                 at that time:<a href='post?id=<%= result[i]._id %>' ><%= result[i].time %></a>
+                <br>
                 <a href='user?id=<%= result[i].user_id %>' ><%= result[i].user_name %></a> listen to this song <%= result[i].title %>
             <% } %>
             
