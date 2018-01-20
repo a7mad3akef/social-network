@@ -87,9 +87,10 @@ function add_like_to_post(theId, callback){
     var query = { _id: ObjectId(theId) };
     db.collection("events").find(query).toArray(function(err, result) {
       if (err) throw err;
-      console.log(result[0].likes);
+      console.log(result);
       db.close();
       current_likes = result[0].likes
+      console.log(current_likes)
       current_likes.push({name:'Ahmed Akef'})
       MongoClient.connect(url2, function(err, db) {
           if (err) throw err;
@@ -99,7 +100,7 @@ function add_like_to_post(theId, callback){
             if (err) throw err;
             console.log("1 document updated");
             db.close();
-            console.log(res)
+            return res
           });
         });
     });
