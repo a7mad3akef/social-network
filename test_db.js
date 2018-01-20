@@ -99,7 +99,7 @@ function add_like_to_post(theId, callback){
             if (err) throw err;
             console.log("1 document updated");
             db.close();
-            return res
+            console.log(res)
           });
         });
     });
