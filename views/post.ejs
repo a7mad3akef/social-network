@@ -38,7 +38,12 @@
         <a href='user?id=<%= result[0].user_id %>' ><%= result[0].user_name %></a> listen to this song <%= result[0].title %>
         </p>
     <% } %>
-    The Likes:<%= result[0].likes %><br>
+    The Likes:
+    <% if (result[0].likes) { %>
+        <% for(var i=0; i<result[0].likes.length; i++) { %>
+        <% } %>
+    <% } %>   
+    <br>
     The Dislikes<%= result[0].dislikes %><br>
     The Comments<%= result[0].comments %><br>
     The Pushes<%= result[0].pushes %><br>
