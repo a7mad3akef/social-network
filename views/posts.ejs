@@ -22,7 +22,7 @@
 
     </div>
     <% for(var i=0; i<result.length; i++) { %>
-        <li> 
+         
             <% if (result[i].relative_path) { %>
                 <p>
                     at that time:<a href='post?id=<%= result[i]._id %>' ><%= result[i].time %></a>
@@ -37,9 +37,12 @@
                 at that time:<a href='post?id=<%= result[i]._id %>' ><%= result[i].time %></a>
                 <%= result[i].user_name %> listen to this song <%= result[i].title %>
             <% } %>
-            <a href='user?id=<%= result[i].user_id %>' ><%= result[i].user_name %></a>
+            <% if (result[i].user_id == user_id) { %>
+                <a href='account' ><%= result[i].user_name %></a>
+            <% } else { %>
+                <a href='user?id=<%= result[i].user_id %>' ><%= result[i].user_name %></a>
+            <% } %>    
             <!-- <a href='follow?id=<%= result[i]._id %>&name=<%= result[i].name %>' class="btn btn-success btn-sm">Follow </a> -->
-        </li>
     <% } %>
         
 </div>
