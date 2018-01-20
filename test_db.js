@@ -80,6 +80,32 @@ function get_post_info(theId, callback){
 //     console.log(result)
 // })
 
+function add_like_to_info(theId, callback){
+  MongoClient.connect(url2, function(err, db) {
+    if (err) throw err;
+    // var query = {$and: [{user_id : sender},{state:'not_confirmed'}]};
+    var query = { _id: ObjectId(theId) };
+    db.collection("events").find(query).toArray(function(err, result) {
+      if (err) throw err;
+      console.log(result[0].likes);
+      db.close();
+      current_likes = result[0].likes
+      current_likes.push({name:'Ahmed Akef'})
+      MongoClient.connect(url, function(err, db) {
+          if (err) throw err;
+          var myquery = { _id: ObjectId(theId) };
+          var newvalues = { $set: { likes: current_likes } };
+          db.collection("orders").updateOne(myquery, newvalues, function(err, res) {
+            if (err) throw err;
+            console.log("1 document updated");
+            db.close();
+            return res
+          });
+        });
+    });
+  });
+}
+
 get_post_info('5a60f991eafce62382d24171', function(result){
   console.log(result)
 })
