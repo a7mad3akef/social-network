@@ -90,8 +90,8 @@ function add_like_to_post(theId, callback){
       console.log(result);
       db.close();
       current_likes = result[0].likes
-      console.log(current_likes)
       current_likes.push({name:'Ahmed Akef'})
+      console.log(current_likes)
       MongoClient.connect(url2, function(err, db) {
           if (err) throw err;
           var myquery = { _id: ObjectId(theId) };
