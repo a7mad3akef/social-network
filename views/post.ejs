@@ -41,6 +41,7 @@
     The Likes:
     <% if (result[0].likes) { %>
         <% for(var i=0; i<result[0].likes.length; i++) { %>
+                <%= result[0].likes[i].name %>
         <% } %>
     <% } %>   
     <br>
