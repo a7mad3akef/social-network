@@ -554,6 +554,14 @@ module.exports = function(app, passport) {
         })
     })
 
+    app.get('/like', isLoggedIn, function(req, res){
+        var theId = req.query.id
+        var user = req.user
+        add_like_to_post(theId, user, function(){
+            res.redirect('posts');
+        })
+    })
+
     app.get('/account', isLoggedIn, function(req, res){
         var user = req.user;
         res.render('account.ejs',{
@@ -623,6 +631,38 @@ function add_song_to_events(theId, user, callback){
         console.log(result)
         callback(result)
       }); 
+    });
+  }
+
+  function add_like_to_post(theId, user, callback){
+    MongoClient.connect(url2, function(err, db) {
+      if (err) throw err;
+      // var query = {$and: [{user_id : sender},{state:'not_confirmed'}]};
+      var query = { _id: ObjectId(theId) };
+      db.collection("events").find(query).toArray(function(err, result) {
+        if (err) throw err;
+        console.log(result);
+        db.close();
+        current_likes = result[0].likes
+        current_likes.push({
+            name: user.user_name,
+            id: user._id,
+            time: getDateTime()
+        })
+        console.log(current_likes)
+        MongoClient.connect(url2, function(err, db) {
+            if (err) throw err;
+            var myquery = { _id: ObjectId(theId) };
+            var newvalues = { $set: { likes: current_likes } };
+            db.collection("events").updateOne(myquery, newvalues, function(err, res) {
+              if (err) throw err;
+              console.log("1 document updated");
+              db.close();
+              return res
+            });
+          });
+        callback()  
+      });
     });
   }
 
