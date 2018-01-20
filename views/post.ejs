@@ -43,10 +43,10 @@
     The Comments<%= result[0].comments %><br>
     The Pushes<%= result[0].pushes %><br>
 
-    <a href="/like" class="btn btn-primary btn-sm">Like</a>
-    <a href="/dislike" class="btn btn-primary btn-sm">Dislike</a>
-    <a href="/comment" class="btn btn-primary btn-sm">Comment</a>
-    <a href="/push" class="btn btn-primary btn-sm">Push</a>
+    <a href="/like?id=<%= result[0]._id %>" class="btn btn-primary btn-sm">Like</a>
+    <a href="/dislike?id=<%= result[0]._id %>" class="btn btn-primary btn-sm">Dislike</a>
+    <a href="/comment?id=<%= result[0]._id %>" class="btn btn-primary btn-sm">Comment</a>
+    <a href="/push?id=<%= result[0]._id %>" class="btn btn-primary btn-sm">Push</a>
 
 
 </div>
