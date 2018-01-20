@@ -26,7 +26,7 @@
             <% if (result[i].relative_path) { %>
                 <p>
                     at that time:<a href='post?id=<%= result[i]._id %>' ><%= result[i].time %></a>
-                    <%= result[i].user_name %> uploaded this image
+                    <a href='user?id=<%= result[i].user_id %>' ><%= result[i].user_name %></a> uploaded this image
                     <br>
                     <img src='<%= result[i].relative_path %>' height="100" width="100"><br>
                     
@@ -35,14 +35,9 @@
                 
             <% } else { %>
                 at that time:<a href='post?id=<%= result[i]._id %>' ><%= result[i].time %></a>
-                <%= result[i].user_name %> listen to this song <%= result[i].title %>
+                <a href='user?id=<%= result[i].user_id %>' ><%= result[i].user_name %></a> listen to this song <%= result[i].title %>
             <% } %>
-            <%= user_id %>
-            <% if (result[i].user_id == user_id) { %>
-                <a href='account' ><%= result[i].user_name %><%= user_id %></a>
-            <% } else { %>
-                <a href='user?id=<%= result[i].user_id %>' ><%= result[i].user_name %></a>
-            <% } %>    
+            
             <!-- <a href='follow?id=<%= result[i]._id %>&name=<%= result[i].name %>' class="btn btn-success btn-sm">Follow </a> -->
     <% } %>
         
