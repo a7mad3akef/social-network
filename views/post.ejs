@@ -21,8 +21,27 @@
         
 
     </div>
-    <%= result[0].time %>
+    <% if (result[0].relative_path) { %>
+        <p>
+            at that time:<a href='posts?id=<%= result[i]._id %>' ><%= result[i].time %></a>
+            <br>
+            <a href='user?id=<%= result[i].user_id %>' ><%= result[i].user_name %></a> uploaded this image
+            <br>
+            <img src='<%= result[i].relative_path %>' height="100" width="100"><br>
+            
+            
+        </p>
         
+    <% } else { %>
+        at that time:<a href='post?id=<%= result[i]._id %>' ><%= result[i].time %></a>
+        <br>
+        <a href='user?id=<%= result[i].user_id %>' ><%= result[i].user_name %></a> listen to this song <%= result[i].title %>
+    <% } %>
+    <%= result[0].likes %><br>
+    <%= result[0].dislikes %><br>
+    <%= result[0].comments %><br>
+    <%= result[0].pushes %><br>
+
 </div>
 </body>
 </html>
