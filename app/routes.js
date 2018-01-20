@@ -642,16 +642,18 @@ function add_song_to_events(theId, user, callback){
       var query = { _id: ObjectId(theId) };
       db.collection("events").find(query).toArray(function(err, result) {
         if (err) throw err;
-        console.log(result);
+        // console.log(result);
         db.close();
         the_likes = result[0].likes
         the_dislikes = result[0].dislikes
+        console.log(the_likes)
         current_dislikes = the_dislikes.filter(function(el) {
             return el.id !== user._id;
         });
         current_likes = the_likes.filter(function(el) {
             return el.id !== user._id;
         });
+        console.log(current_likes)
         current_likes.push({
             name: user.name,
             id: user._id,
