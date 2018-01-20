@@ -558,7 +558,7 @@ module.exports = function(app, passport) {
         var theId = req.query.id
         var user = req.user
         add_like_to_post(theId, user, function(){
-            res.redirect('posts');
+            res.redirect('all_posts');
         })
     })
 
