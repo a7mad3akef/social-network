@@ -80,7 +80,7 @@ function get_post_info(theId, callback){
 //     console.log(result)
 // })
 
-function add_like_to_info(theId, callback){
+function add_like_to_post(theId, callback){
   MongoClient.connect(url2, function(err, db) {
     if (err) throw err;
     // var query = {$and: [{user_id : sender},{state:'not_confirmed'}]};
@@ -106,6 +106,6 @@ function add_like_to_info(theId, callback){
   });
 }
 
-get_post_info('5a60f991eafce62382d24171', function(result){
+add_like_to_post('5a616998b0ad35327e49414b', function(result){
   console.log(result)
 })
