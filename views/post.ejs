@@ -38,35 +38,38 @@
         <a href='user?id=<%= result[0].user_id %>' ><%= result[0].user_name %></a> listen to this song <%= result[0].title %>
         </p>
     <% } %>
+
+    <a href="/like?id=<%= result[0]._id %>" class="btn btn-primary btn-sm">Like</a>
+    <a href="/dislike?id=<%= result[0]._id %>" class="btn btn-primary btn-sm">Dislike</a>
+    <form action="/add_comment?id=<%= result[0]._id %>" method="post">
+        Your comment:<input type="text" name="comment"><br>
+        <input type="submit" class="btn btn-primary btn-sm" value='Add Comment'>
+    </form>
+    <a href="/push?id=<%= result[0]._id %>" class="btn btn-primary btn-sm">Push</a>
+
     The Likes:
     <% if (result[0].likes) { %>
         <% for(var i=0; i<result[0].likes.length; i++) { %>
-                <%= result[0].likes[i].name %>
+                <a href='user?id=<%= result[0].likes[i].id %>' ><%= result[0].likes[i].name %></a>
         <% } %>
     <% } %>   
     <br>
     The Dislikes:
     <% if (result[0].dislikes) { %>
         <% for(var i=0; i<result[0].dislikes.length; i++) { %>
-                <%= result[0].dislikes[i].name %>
+                <a href='user?id=<%= result[0].dislikes[i].id %>' ><%= result[0].dislikes[i].name %></a>
         <% } %>
     <% } %>   
     <br>
     The Comments:<% if (result[0].comments) { %>
         <% for(var i=0; i<result[0].comments.length; i++) { %>
-                <%= result[0].comments[i].name %>said<%= result[0].comments[i].comment %>
+                <a href='user?id=<%= result[0].comments[i].id %>' ><%= result[0].comments[i].name %></a> said : <%= result[0].comments[i].comment %>
         <% } %>
     <% } %>
     <br>
     The Pushes:<%= result[0].pushes %><br>
 
-    <a href="/like?id=<%= result[0]._id %>" class="btn btn-primary btn-sm">Like</a>
-    <a href="/dislike?id=<%= result[0]._id %>" class="btn btn-primary btn-sm">Dislike</a>
-    <form action="/add_comment?id=<%= result[0]._id %>" method="post">
-        Your comment:<input type="text" name="comment"><br>
-        <input type="submit" class="btn btn-primary btn-sm" value='Add'>
-    </form>
-    <a href="/push?id=<%= result[0]._id %>" class="btn btn-primary btn-sm">Push</a>
+    
 
 
 </div>
