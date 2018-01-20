@@ -33,9 +33,10 @@
         </p>
         
     <% } else { %>
-        at that time:<a href='post?id=<%= result[0]._id %>' ><%= result[0].time %></a>
+        <p>at that time:<a href='post?id=<%= result[0]._id %>' ><%= result[0].time %></a>
         <br>
         <a href='user?id=<%= result[0].user_id %>' ><%= result[0].user_name %></a> listen to this song <%= result[0].title %>
+        </p>
     <% } %>
     The Likes:<%= result[0].likes %><br>
     The Dislikes<%= result[0].dislikes %><br>
