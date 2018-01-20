@@ -26,6 +26,7 @@
             <% if (result[i].relative_path) { %>
                 <p>
                     at that time:<a href='post?id=<%= result[i]._id %>' ><%= result[i].time %></a>
+                    <br>
                     <a href='user?id=<%= result[i].user_id %>' ><%= result[i].user_name %></a> uploaded this image
                     <br>
                     <img src='<%= result[i].relative_path %>' height="100" width="100"><br>

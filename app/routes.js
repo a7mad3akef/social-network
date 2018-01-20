@@ -531,22 +531,19 @@ module.exports = function(app, passport) {
         var user_id = req.user._id
         get_user_posts(user_id, function(result){
             res.render('posts.ejs',{
-               result : result,
-               user_id : user_id 
+               result : result
             })
         })
     })
 
     app.get('/all_posts',isLoggedIn, function(req, res){
-        var user_id = req.user._id
-        get_user_posts(user_id, function(result){
+        get_all_posts(function(result){
             res.render('posts.ejs',{
-               result : result,
-               user_id : user_id 
+               result : result
             })
         })
     })
-    
+
     app.get('/account', isLoggedIn, function(req, res){
         var user = req.user;
         res.render('account.ejs',{
@@ -587,6 +584,18 @@ function add_song_to_events(theId, user, callback){
     MongoClient.connect(url2, function(err, db) {
       if (err) throw err;
       var query = { user_id: ObjectId(theId) };
+      db.collection("events").find(query).toArray(function(err, result) {
+        if (err) throw err;
+        console.log(result)
+        callback(result)
+      }); 
+    });
+  }
+
+  function get_all_posts(callback){
+    MongoClient.connect(url2, function(err, db) {
+      if (err) throw err;
+      var query = {};
       db.collection("events").find(query).toArray(function(err, result) {
         if (err) throw err;
         console.log(result)
