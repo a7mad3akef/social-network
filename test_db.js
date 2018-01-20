@@ -1,7 +1,7 @@
 var MongoClient = require('mongodb').MongoClient;
 var ObjectId = require('mongodb').ObjectID;
 var databaseName = 'discogs'
-var url = 'mongodb://' + 'kofa' + ':' + 'kofa' + '@127.0.0.1:' + '27017' + '/' + databaseName;
+var url2 = 'mongodb://' + 'kofa' + ':' + 'kofa' + '@127.0.0.1:' + '27017' + '/' + databaseName;
 
 
 // MongoClient.connect(url, function(err, db) {
@@ -15,7 +15,7 @@ var url = 'mongodb://' + 'kofa' + ':' + 'kofa' + '@127.0.0.1:' + '27017' + '/' +
 // });
 
 function get_song_by_id (theId, callback){
-    MongoClient.connect(url, function(err, db) {
+    MongoClient.connect(url2, function(err, db) {
         if (err) throw err;
         var query = { _id: ObjectId(theId) };
         db.collection("songs").find(query).toArray(function(err, result) {
@@ -28,7 +28,7 @@ function get_song_by_id (theId, callback){
 }
 
 function add_song_to_events(theId, callback){
-  MongoClient.connect(url, function(err, db) {
+  MongoClient.connect(url2, function(err, db) {
     if (err) throw err;
     var query = { _id: ObjectId(theId) };
     db.collection("songs").find(query).toArray(function(err, result) {
@@ -53,7 +53,7 @@ function add_song_to_events(theId, callback){
   });
 }
 function get_user_posts(theId, callback){
-  MongoClient.connect(url, function(err, db) {
+  MongoClient.connect(url2, function(err, db) {
     if (err) throw err;
     var query = { user_id: ObjectId(theId) };
     db.collection("events").find(query).toArray(function(err, result) {
@@ -65,7 +65,7 @@ function get_user_posts(theId, callback){
 }
 
 function get_post_info(theId, callback){
-  MongoClient.connect(url, function(err, db) {
+  MongoClient.connect(url2, function(err, db) {
     if (err) throw err;
     var query = { _id: ObjectId(theId) };
     db.collection("events").find(query).toArray(function(err, result) {

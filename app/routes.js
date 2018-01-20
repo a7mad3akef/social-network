@@ -603,7 +603,7 @@ function add_song_to_events(theId, user, callback){
   }
 
   function get_post_info(theId, callback){
-    MongoClient.connect(url, function(err, db) {
+    MongoClient.connect(url2, function(err, db) {
       if (err) throw err;
       var query = { _id: ObjectId(theId) };
       db.collection("events").find(query).toArray(function(err, result) {
