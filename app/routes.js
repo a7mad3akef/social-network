@@ -570,6 +570,15 @@ module.exports = function(app, passport) {
         })
     })
 
+    app.post('/add_comment', isLoggedIn, function(req, res){
+        var theId = req.query.id
+        var user = req.user
+        var comment = req.body.comment
+        add_comment_to_post(theId, user, comment, function(){
+            res.redirect('all_posts');
+        })
+    })
+
     app.get('/account', isLoggedIn, function(req, res){
         var user = req.user;
         res.render('account.ejs',{
@@ -654,14 +663,12 @@ function add_song_to_events(theId, user, callback){
         db.close();
         the_likes = result[0].likes
         the_dislikes = result[0].dislikes
-        console.log(the_likes)
         current_dislikes = the_dislikes.filter(function(el) {
             return el.name !== user.name;
         });
         current_likes = the_likes.filter(function(el) {
             return el.name !== user.name;
         });
-        console.log(the_likes)
         current_likes.push({
             name: user.name,
             id: user._id,
@@ -695,20 +702,17 @@ function add_song_to_events(theId, user, callback){
         db.close();
         the_likes = result[0].likes
         the_dislikes = result[0].dislikes
-        console.log(the_likes)
         current_dislikes = the_dislikes.filter(function(el) {
             return el.name !== user.name;
         });
         current_likes = the_likes.filter(function(el) {
             return el.name !== user.name;
         });
-        console.log(the_likes)
         current_dislikes.push({
             name: user.name,
             id: user._id,
             time: getDateTime()
         })
-        console.log(current_likes)
         MongoClient.connect(url2, function(err, db) {
             if (err) throw err;
             var myquery = { _id: ObjectId(theId) };
@@ -724,6 +728,40 @@ function add_song_to_events(theId, user, callback){
       });
     });
   }
+
+
+  function add_comment_to_post(theId, user, comment, callback){
+    MongoClient.connect(url2, function(err, db) {
+        if (err) throw err;
+        // var query = {$and: [{user_id : sender},{state:'not_confirmed'}]};
+        var query = { _id: ObjectId(theId) };
+        db.collection("events").find(query).toArray(function(err, result) {
+          if (err) throw err;
+          // console.log(result);
+          db.close();
+          current_comments = result[0].comments
+          current_comments.push({
+              name: user.name,
+              comment: comment,
+              id: user._id,
+              time: getDateTime()
+          })
+          MongoClient.connect(url2, function(err, db) {
+              if (err) throw err;
+              var myquery = { _id: ObjectId(theId) };
+              var newvalues = { $set: { comments: current_comments } };
+              db.collection("events").updateOne(myquery, newvalues, function(err, res) {
+                if (err) throw err;
+                console.log("1 document updated");
+                db.close();
+                return res
+              });
+            });
+          callback()  
+        });
+      });
+  }
+
 
   function getDateTime() {
     

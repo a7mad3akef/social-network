@@ -45,13 +45,22 @@
         <% } %>
     <% } %>   
     <br>
-    The Dislikes<%= result[0].dislikes %><br>
-    The Comments<%= result[0].comments %><br>
-    The Pushes<%= result[0].pushes %><br>
+    The Dislikes:
+    <% if (result[0].dislikes) { %>
+        <% for(var i=0; i<result[0].dislikes.length; i++) { %>
+                <%= result[0].dislikes[i].name %>
+        <% } %>
+    <% } %>   
+    <br>
+    The Comments:<%= result[0].comments %><br>
+    The Pushes:<%= result[0].pushes %><br>
 
     <a href="/like?id=<%= result[0]._id %>" class="btn btn-primary btn-sm">Like</a>
     <a href="/dislike?id=<%= result[0]._id %>" class="btn btn-primary btn-sm">Dislike</a>
-    <a href="/comment?id=<%= result[0]._id %>" class="btn btn-primary btn-sm">Comment</a>
+    <form action="/add_comment?id=<%= result[0]._id %>" method="post">
+        song id:<input type="text" name="comment"><br>
+        <input type="submit" class="btn btn-primary btn-sm" value='listen'>
+    </form>
     <a href="/push?id=<%= result[0]._id %>" class="btn btn-primary btn-sm">Push</a>
 
 
