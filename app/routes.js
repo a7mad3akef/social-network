@@ -644,9 +644,16 @@ function add_song_to_events(theId, user, callback){
         if (err) throw err;
         console.log(result);
         db.close();
-        current_likes = result[0].likes
+        the_likes = result[0].likes
+        the_dislikes = result[0].dislikes
+        current_dislikes = the_dislikes.filter(function(el) {
+            return el.id !== user._id;
+        });
+        current_likes = the_likes.filter(function(el) {
+            return el.id !== user._id;
+        });
         current_likes.push({
-            name: user.user_name,
+            name: user.name,
             id: user._id,
             time: getDateTime()
         })
@@ -654,7 +661,7 @@ function add_song_to_events(theId, user, callback){
         MongoClient.connect(url2, function(err, db) {
             if (err) throw err;
             var myquery = { _id: ObjectId(theId) };
-            var newvalues = { $set: { likes: current_likes } };
+            var newvalues = { $set: { likes: current_likes, dislikes: current_dislikes } };
             db.collection("events").updateOne(myquery, newvalues, function(err, res) {
               if (err) throw err;
               console.log("1 document updated");
