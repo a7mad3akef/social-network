@@ -96,7 +96,7 @@ function add_like_to_post(theId, callback){
           if (err) throw err;
           var myquery = { _id: ObjectId(theId) };
           var newvalues = { $set: { likes: current_likes } };
-          db.collection("orders").updateOne(myquery, newvalues, function(err, res) {
+          db.collection("events").updateOne(myquery, newvalues, function(err, res) {
             if (err) throw err;
             console.log("1 document updated");
             db.close();
