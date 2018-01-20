@@ -536,10 +536,18 @@ module.exports = function(app, passport) {
         })
     })
 
-    app.get('/all_posts',isLoggedIn, function(req, res){
+    app.get('/all_posts', isLoggedIn, function(req, res){
         get_all_posts(function(result){
             res.render('posts.ejs',{
                result : result
+            })
+        })
+    })
+
+    app.get('/posts', isLoggedIn, function(req, res){
+        get_post_info(function(result){
+            res.render('post.ejs',{
+                result : result
             })
         })
     })
@@ -584,6 +592,18 @@ function add_song_to_events(theId, user, callback){
     MongoClient.connect(url2, function(err, db) {
       if (err) throw err;
       var query = { user_id: ObjectId(theId) };
+      db.collection("events").find(query).toArray(function(err, result) {
+        if (err) throw err;
+        console.log(result)
+        callback(result)
+      }); 
+    });
+  }
+
+  function get_post_info(theId, callback){
+    MongoClient.connect(url, function(err, db) {
+      if (err) throw err;
+      var query = { _id: ObjectId(theId) };
       db.collection("events").find(query).toArray(function(err, result) {
         if (err) throw err;
         console.log(result)
