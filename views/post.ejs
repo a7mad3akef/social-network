@@ -37,10 +37,16 @@
         <br>
         <a href='user?id=<%= result[0].user_id %>' ><%= result[0].user_name %></a> listen to this song <%= result[0].title %>
     <% } %>
-    <%= result[0].likes %><br>
-    <%= result[0].dislikes %><br>
-    <%= result[0].comments %><br>
-    <%= result[0].pushes %><br>
+    The Likes:<%= result[0].likes %><br>
+    The Dislikes<%= result[0].dislikes %><br>
+    The Comments<%= result[0].comments %><br>
+    The Pushes<%= result[0].pushes %><br>
+
+    <a href="/like" class="btn btn-primary btn-sm">Like</a>
+    <a href="/dislike" class="btn btn-primary btn-sm">Dislike</a>
+    <a href="/comment" class="btn btn-primary btn-sm">Comment</a>
+    <a href="/push" class="btn btn-primary btn-sm">Push</a>
+
 
 </div>
 </body>
