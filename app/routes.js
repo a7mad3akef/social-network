@@ -761,24 +761,25 @@ function add_song_to_events(theId, user, callback){
                 console.log("1 document updated");
                 db.close();
                 return res
-                MongoClient.connect(url2, function(err, db) {
-                    if (err) throw err;
-                    var query = { _id: ObjectId(theId) };
-                    db.collection("events").find(query).toArray(function(err, result) {
-                      if (err) throw err;
-                      console.log(result)
-                      result[0].pushed_by_name = user.name
-                      result[0].pushed_by_id = user._id
-                      result[0].Pushed_time = getDateTime()
-                      db.collection("events").insertOne(result[0], function(err, res) {
-                        if (err) throw err;
-                        console.log("1 document inserted");
-                        db.close();
-                      });
-                    }); 
-                  });
+                
               });
             });
+          MongoClient.connect(url2, function(err, db) {
+                if (err) throw err;
+                var query = { _id: ObjectId(theId) };
+                db.collection("events").find(query).toArray(function(err, result) {
+                  if (err) throw err;
+                  console.log(result)
+                  result[0].pushed_by_name = user.name
+                  result[0].pushed_by_id = user._id
+                  result[0].Pushed_time = getDateTime()
+                  db.collection("events").insertOne(result[0], function(err, res) {
+                    if (err) throw err;
+                    console.log("1 document inserted");
+                    db.close();
+                  });
+                }); 
+            })  
           callback()  
         });
     });
