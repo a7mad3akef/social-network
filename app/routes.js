@@ -770,6 +770,7 @@ function add_song_to_events(theId, user, callback){
                 db.collection("events").find(query).toArray(function(err, result) {
                   if (err) throw err;
                   console.log(result)
+                  delete result[0]._id;
                   result[0].pushed_by_name = user.name
                   result[0].pushed_by_id = user._id
                   result[0].Pushed_time = getDateTime()
