@@ -396,7 +396,7 @@ module.exports = function(app, passport) {
     // get user info
     app.get('/user', isLoggedIn, function(req, res) {
         
-        if (req.user._id == ObjectId(req.query.id) ){
+        if (req.user._id == req.query.id ){
             console.log('////////////////////////////////////////////////////////////////////////////////////')
         }
 
