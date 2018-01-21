@@ -41,11 +41,14 @@
 
     <a href="/like?id=<%= result[0]._id %>" class="btn btn-primary btn-sm">Like</a>
     <a href="/dislike?id=<%= result[0]._id %>" class="btn btn-primary btn-sm">Dislike</a>
+    <br>
     <form action="/add_comment?id=<%= result[0]._id %>" method="post">
         Your comment:<input type="text" name="comment"><br>
         <input type="submit" class="btn btn-primary btn-sm" value='Add Comment'>
     </form>
+    <br>
     <a href="/push?id=<%= result[0]._id %>" class="btn btn-primary btn-sm">Push</a>
+    <br>
 
     The Likes:
     <% if (result[0].likes) { %>
@@ -67,7 +70,12 @@
         <% } %>
     <% } %>
     <br>
-    The Pushes:<%= result[0].pushes %><br>
+    The Pushes:<% if (result[0].likes) { %>
+        <% for(var i=0; i<result[0].pushes.length; i++) { %>
+                <a href='user?id=<%= result[0].pushes[i].id %>' ><%= result[0].pushes[i].name %></a>
+        <% } %>
+    <% } %> 
+    <br>
 
     
 

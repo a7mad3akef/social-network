@@ -773,7 +773,7 @@ function add_song_to_events(theId, user, callback){
                   delete result[0]._id;
                   result[0].pushed_by_name = user.name
                   result[0].pushed_by_id = user._id
-                  result[0].Pushed_time = getDateTime()
+                  result[0].time = getDateTime()
                   db.collection("events").insertOne(result[0], function(err, res) {
                     if (err) throw err;
                     console.log("1 document inserted");
