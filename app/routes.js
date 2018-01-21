@@ -729,6 +729,52 @@ function add_song_to_events(theId, user, callback){
     });
   }
 
+  function push_post(theId, user, callback){
+    MongoClient.connect(url2, function(err, db) {
+        if (err) throw err;
+        // var query = {$and: [{user_id : sender},{state:'not_confirmed'}]};
+        var query = { _id: ObjectId(theId) };
+        db.collection("events").find(query).toArray(function(err, result) {
+          if (err) throw err;
+          // console.log(result);
+          db.close();
+          current_pushes = result[0].pushes
+          current_pushes.push({
+              name: user.name,
+              id: user._id,
+              time: getDateTime()
+          })
+          MongoClient.connect(url2, function(err, db) {
+              if (err) throw err;
+              var myquery = { _id: ObjectId(theId) };
+              var newvalues = { $set: { pushes: current_pushes } };
+              db.collection("events").updateOne(myquery, newvalues, function(err, res) {
+                if (err) throw err;
+                console.log("1 document updated");
+                db.close();
+                return res
+                MongoClient.connect(url2, function(err, db) {
+                    if (err) throw err;
+                    var query = { _id: ObjectId(theId) };
+                    db.collection("events").find(query).toArray(function(err, result) {
+                      if (err) throw err;
+                      console.log(result)
+                      result[0].pushed_by_name = user.name
+                      result[0].pushed_by_id = user._id
+                      result[0].Pushed_time = getDateTime()
+                      db.collection("events").insertOne(result[0], function(err, res) {
+                        if (err) throw err;
+                        console.log("1 document inserted");
+                        db.close();
+                      });
+                    }); 
+                  });
+              });
+            });
+          callback()  
+        });
+    });
+  }
 
   function add_comment_to_post(theId, user, comment, callback){
     MongoClient.connect(url2, function(err, db) {
