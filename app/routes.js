@@ -396,6 +396,10 @@ module.exports = function(app, passport) {
     // get user info
     app.get('/user', isLoggedIn, function(req, res) {
         
+        if (req.user._id == ObjectId(req.query.id) ){
+            console.log('////////////////////////////////////////////////////////////////////////////////////')
+        }
+
         MongoClient.connect(url, function(err, db) {
             if (err) throw err;
             var query = { _id: ObjectId(req.query.id) };
