@@ -396,7 +396,9 @@ module.exports = function(app, passport) {
     // get user info
     app.get('/user', isLoggedIn, function(req, res) {
         
-        
+        if (req.user._id == req.query.id ){
+            res.redirect('account');
+        } else {
             MongoClient.connect(url, function(err, db) {
                 if (err) throw err;
                 var query = { _id: ObjectId(req.query.id) };
@@ -404,25 +406,23 @@ module.exports = function(app, passport) {
                 if (err) throw err;
                 console.log(result);
                 db.close();
-                var followers = result[0].followers  
+                var followers = result[0].followers
+                var unfollow = 0  
                 for (var i in followers ) {
             
                         if ( JSON.stringify(followers[i].id) == JSON.stringify(req.user._id ) ) {
-                            res.render('user.ejs',{
-                                user : result,
-                                unfollow: 1
-                                });
+                            unfollow = 1
                         }
                     }  
 
                 res.render('user.ejs',{
                     user : result,
-                    unfollow: 0
+                    unfollow: unfollow
                     });  
                 });
                 
             });
-       
+        }
         
     });
 
