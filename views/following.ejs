@@ -27,7 +27,7 @@
         
             <% for(var i=0; i<following.length; i++) { %>
                 <li> 
-                    <a href='user?id=<%= followers[i].id %>' ><%= followers[i].name %></a>
+                    <a href='user?id=<%= following[i].id %>' ><%= following[i].name %></a>
                     <!-- <a href='unfollow?id=<%= following[i].id %>&name=<%= following[i].name %>' class="btn btn-danger btn-sm">Unfollow </a> -->
                 </li>
             <% } %>
