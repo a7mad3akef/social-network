@@ -42,7 +42,12 @@ var userSchema = mongoose.Schema({
     posts            : [{
         id : String,
         type : String
-    }]
+    }],
+    confirmed        :{
+        type: DataTypes.BOOLEAN,
+        defaultValue: false
+    },
+    confirmation     : String
 
 });
 

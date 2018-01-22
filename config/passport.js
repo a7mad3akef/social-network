@@ -3,12 +3,34 @@ var LocalStrategy    = require('passport-local').Strategy;
 var FacebookStrategy = require('passport-facebook').Strategy;
 var TwitterStrategy  = require('passport-twitter').Strategy;
 var GoogleStrategy   = require('passport-google-oauth').OAuth2Strategy;
+var nodemailer = require('nodemailer');
 
 // load up the user model
 var User       = require('../app/models/user');
 
 // load the auth variables
 var configAuth = require('./auth'); // use this one for testing
+
+
+let transporter = nodemailer.createTransport({
+    service: 'gmail',
+    secure: false,
+    port: 25,
+    auth: {
+      user: 'rix.music.mail@gmail.com',
+      pass: 'rix.music.mail1234'
+    },
+    tls: {
+      rejectUnauthorized: false
+    }
+});
+
+function randomIntFromInterval(min,max)
+{
+    return Math.floor(Math.random()*(max-min+1)+min);
+}
+
+
 
 module.exports = function(passport) {
 
@@ -95,10 +117,29 @@ module.exports = function(passport) {
                         // create the user
                         var newUser            = new User();
 
+                        var secret = randomIntFromInterval(1000, 9999)
+
+                        let HelperOptions = {
+                            from: '"Rix Music" <rix.music.mail@gmail.com',
+                            to: email,
+                            subject: 'Verification',
+                            text: 'Your code is '+secret
+                          };
+
+                        console.log('Your code is '+secret)
+                        
+                        transporter.sendMail(HelperOptions, (error, info) => {
+                            if (error) {
+                                return console.log(error);
+                            }
+                            console.log("The message was sent!");
+                            console.log(info);
+                        });  
+
                         newUser.local.email    = email;
                         newUser.local.name    = req.body.name; 
                         newUser.local.password = newUser.generateHash(password);
-
+                        newUser.confirmation = secret
                         newUser.save(function(err) {
                             if (err)
                                 return done(err);
@@ -165,7 +206,7 @@ module.exports = function(passport) {
                             user.facebook.token = token;
                             user.facebook.name  = profile.name.givenName + ' ' + profile.name.familyName;
                             user.facebook.email = (profile.emails[0].value || '').toLowerCase();
-
+                        
                             user.save(function(err) {
                                 if (err)
                                     return done(err);
@@ -183,6 +224,7 @@ module.exports = function(passport) {
                         newUser.facebook.token = token;
                         newUser.facebook.name  = profile.name.givenName + ' ' + profile.name.familyName;
                         newUser.facebook.email = (profile.emails[0].value || '').toLowerCase();
+                        newUser.confirmed = true
 
                         newUser.save(function(err) {
                             if (err)
@@ -339,6 +381,7 @@ module.exports = function(passport) {
                         newUser.google.token = token;
                         newUser.google.name  = profile.displayName;
                         newUser.google.email = (profile.emails[0].value || '').toLowerCase(); // pull the first email
+                        newUser.confirmed = true
 
                         newUser.save(function(err) {
                             if (err)
