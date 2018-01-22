@@ -546,10 +546,9 @@ module.exports = function(app, passport) {
                     }
                 });
             });
-            console.log('////////////////////////////////////////////////////////////////////')
             console.log(filtered_result)
             res.render('posts.ejs',{
-               result : result
+               result : filtered_result
             })
         })
     })
