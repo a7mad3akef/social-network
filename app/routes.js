@@ -496,10 +496,13 @@ module.exports = function(app, passport) {
         var user = req.user
         var confirmation = req.body.confirmation
         if (user.confirmation == confirmation){
-            console.log('true')
-        }
-        res.redirect('profile')
-    })
+            confirm_user(user, function(){
+                res.redirect('profile')
+            })
+        }else{
+            res.redirect('profile')
+        } 
+    });
 
     app.post('/post_image', isLoggedIn, function(req, res){
         var user = req.user
@@ -842,7 +845,27 @@ function add_song_to_events(theId, user, callback){
   }
 
   function confirm_user(user,callback){
-    callback()
+    var theId = user._id  
+    MongoClient.connect(url, function(err, db) {
+        if (err) throw err;
+        var query = { _id: ObjectId(theId) };
+        db.collection("users").find(query).toArray(function(err, result) {
+          if (err) throw err;
+          db.close();
+          MongoClient.connect(url, function(err, db) {
+            if (err) throw err;
+            newvalues = {
+                $set:{confirmation : 'true'}
+            }
+            db.collection("users").updateOne(query, newvalues, function(err, res) {
+              if (err) throw err;
+              console.log("1 document updated");
+              db.close();
+            });
+          });
+        });
+        callback()
+    });
   }
 
 
