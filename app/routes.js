@@ -537,7 +537,17 @@ module.exports = function(app, passport) {
 
     app.get('/all_posts', isLoggedIn, function(req, res){
         get_all_posts(function(result){
-            console.log(result)
+            followings = req.user.following
+            filtered_result = []
+            result.forEach(element => {
+                followings.forEach(following =>{
+                    if (following.id == element.user_id){
+                        filtered_result.push(element)  
+                    }
+                });
+            });
+            console.log('////////////////////////////////////////////////////////////////////')
+            console.log(filtered_result)
             res.render('posts.ejs',{
                result : result
             })
