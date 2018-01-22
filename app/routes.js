@@ -537,6 +537,7 @@ module.exports = function(app, passport) {
 
     app.get('/all_posts', isLoggedIn, function(req, res){
         get_all_posts(function(result){
+            console.log(result)
             res.render('posts.ejs',{
                result : result
             })
