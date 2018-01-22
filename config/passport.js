@@ -224,7 +224,7 @@ module.exports = function(passport) {
                         newUser.facebook.token = token;
                         newUser.facebook.name  = profile.name.givenName + ' ' + profile.name.familyName;
                         newUser.facebook.email = (profile.emails[0].value || '').toLowerCase();
-                        newUser.confirmed = true
+                        newUser.confirmation   = 'true'
 
                         newUser.save(function(err) {
                             if (err)
@@ -381,7 +381,7 @@ module.exports = function(passport) {
                         newUser.google.token = token;
                         newUser.google.name  = profile.displayName;
                         newUser.google.email = (profile.emails[0].value || '').toLowerCase(); // pull the first email
-                        newUser.confirmed = true
+                        newUser.confirmation = 'true'
 
                         newUser.save(function(err) {
                             if (err)

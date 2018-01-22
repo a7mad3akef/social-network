@@ -43,10 +43,6 @@ var userSchema = mongoose.Schema({
         id : String,
         type : String
     }],
-    confirmed        :{
-        type: Boolean,
-        defaultValue: false
-    },
     confirmation     : String
 
 });
