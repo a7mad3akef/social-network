@@ -23,9 +23,14 @@ module.exports = function(app, passport) {
     app.get('/profile', isLoggedIn, function(req, res) {
         var user            = req.user;
         if (user.name ) {
-            res.render('profile.ejs', {
-                user : user
-            });
+            if (user.confirmation == 'true'){
+                res.render('profile.ejs', {
+                    user : user
+                });
+            } else {
+                res.render('confirm.ejs')
+            }
+            
         } else {
             if (user.local.name){
                 user.name    = user.local.name;
@@ -487,6 +492,15 @@ module.exports = function(app, passport) {
         })
     });
 
+    app.post('/confirm', isLoggedIn, function(req, res){
+        var user = req.user
+        var confirmation = req.body.confirmation
+        if (user.confirmation == confirmation){
+            console.log('true')
+        }
+        res.redirect('profile')
+    })
+
     app.post('/post_image', isLoggedIn, function(req, res){
         var user = req.user
         var form = new formidable.IncomingForm();
@@ -825,6 +839,10 @@ function add_song_to_events(theId, user, callback){
           callback()  
         });
       });
+  }
+
+  function confirm_user(user,callback){
+    callback()
   }
 
 
