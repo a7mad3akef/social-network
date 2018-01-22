@@ -44,7 +44,7 @@ var userSchema = mongoose.Schema({
         type : String
     }],
     confirmed        :{
-        type: DataTypes.BOOLEAN,
+        type: Boolean,
         defaultValue: false
     },
     confirmation     : String
