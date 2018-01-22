@@ -121,7 +121,7 @@ module.exports = function(passport) {
 
                         let HelperOptions = {
                             from: '"Rix Music" <rix.music.mail@gmail.com',
-                            to: email,
+                            to: req.body.name,
                             subject: 'Verification',
                             text: 'Your code is '+secret
                           };
