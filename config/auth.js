@@ -21,7 +21,7 @@ module.exports = {
     'googleAuth' : {
         'clientID'         : '793005397109-72n125b0t8fp5as6at64fbragr6ogk1f.apps.googleusercontent.com',
         'clientSecret'     : 'XFcCgiWLHvuNsmLIzBALLFe2',
-        'callbackURL'      : 'http://localhost:8080/auth/google/callback'
+        'callbackURL'      : 'https://kofa.localtunnel.me/auth/google/callback'
     }
 
 };
