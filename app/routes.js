@@ -863,8 +863,9 @@ function add_song_to_events(theId, user, callback){
               db.close();
             });
           });
+          callback()
         });
-        callback()
+        
     });
   }
 
